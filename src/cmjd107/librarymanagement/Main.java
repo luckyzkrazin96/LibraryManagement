@@ -4,6 +4,8 @@
  */
 package cmjd107.librarymanagement;
 
+import cmjd107.librarymanagement.view.UserLoginView;
+
 /**
  *
  * @author User
@@ -14,7 +16,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        new UserLoginView().setVisible(true);
     }
     
 }
