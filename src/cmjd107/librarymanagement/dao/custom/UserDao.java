@@ -12,5 +12,5 @@ import cmjd107.librarymanagement.entity.UserEntity;
  * @author User
  */
 public interface UserDao extends CrudDao<UserEntity, String>{
-    
+    UserEntity getUserbyName(String name)throws Exception;
 }

@@ -4,17 +4,27 @@
  */
 package cmjd107.librarymanagement.view;
 
+import cmjd107.librarymanagement.controller.UserController;
+import cmjd107.librarymanagement.dto.UserDto;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
  */
 public class UserLoginView extends javax.swing.JFrame {
 
+    private UserController userController;
+
     /**
      * Creates new form UserLoginView
      */
     public UserLoginView() {
         initComponents();
+        this.userController = new UserController();
     }
 
     /**
@@ -111,7 +121,8 @@ public class UserLoginView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
+        loadMain();
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
@@ -158,4 +169,29 @@ public class UserLoginView extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
+
+    private void loadMain() {
+        try {
+            String userName = txtUserName.getText();
+            if (userName.equals("")) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid UserName");
+            } else {
+                UserDto userDto = userController.getUserbyName(userName);
+                if (userDto == null) {
+                    JOptionPane.showMessageDialog(this, "Invalid User Name");
+                }else{
+                    String password = txtPassword.getText();
+                    if (password.equals(userDto.getPassword())) {
+                        new MainVIew().setVisible(true);
+                        this.dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Invalid Password");
+                    }
+                }
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(UserLoginView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

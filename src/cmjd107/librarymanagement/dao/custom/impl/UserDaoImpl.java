@@ -14,7 +14,7 @@ import java.sql.ResultSet;
  *
  * @author User
  */
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
 
     @Override
     public String save(UserEntity t) throws Exception {
@@ -40,10 +40,23 @@ public class UserDaoImpl implements UserDao{
     public ArrayList<UserEntity> getAll() throws Exception {
         ArrayList<UserEntity> userEntities = new ArrayList<>();
         ResultSet rst = CrudUtil.executeQuery("SELECT * FROM user");
-        while (rst.next()) {            
-            //UserEntity  entity = new UserEntity
+        while (rst.next()) {
+            UserEntity entity = new UserEntity(rst.getString("UserId"), rst.getString("UserName"), rst.getString("Password"));
+            userEntities.add(entity);
+        }
+        return userEntities;
+    }
+
+    @Override
+    public UserEntity getUserbyName(String name) throws Exception{
+        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM user WHERE UserName = ?", name);
+        if (rst.next()) {
+            return new UserEntity(rst.getString("UserId"), rst.getString("UserName"), rst.getString("Password"));
         }
         return null;
     }
+
     
+
+
 }
