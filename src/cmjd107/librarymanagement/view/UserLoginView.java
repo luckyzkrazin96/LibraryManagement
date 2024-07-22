@@ -72,6 +72,11 @@ public class UserLoginView extends javax.swing.JFrame {
 
         btnCancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,6 +129,10 @@ public class UserLoginView extends javax.swing.JFrame {
         loadMain();
 
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,12 +188,12 @@ public class UserLoginView extends javax.swing.JFrame {
                 UserDto userDto = userController.getUserbyName(userName);
                 if (userDto == null) {
                     JOptionPane.showMessageDialog(this, "Invalid User Name");
-                }else{
+                } else {
                     String password = txtPassword.getText();
                     if (password.equals(userDto.getPassword())) {
                         new MainVIew().setVisible(true);
                         this.dispose();
-                    }else{
+                    } else {
                         JOptionPane.showMessageDialog(this, "Invalid Password");
                     }
                 }
